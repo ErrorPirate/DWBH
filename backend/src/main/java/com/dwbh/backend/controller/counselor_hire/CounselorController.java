@@ -27,6 +27,14 @@ public class CounselorController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "게시글 상세조회", description = "ID로 특정 게시글을 조회합니다.")
+    @GetMapping("/{hireSeq}")
+    public ResponseEntity<CounselorDetailResponse> readPostDetail(@PathVariable Long hireSeq) {
+
+        CounselorDetailResponse detail = counselorService.readPostDetail(hireSeq);
+        return ResponseEntity.status(HttpStatus.OK).body(detail);
+    }
+
     @Operation(summary = "해당 유저가 작성한 게시글 조회", description = "전체 게시글 목록을 조회합니다.")
     @GetMapping("/user/{userSeq}")
     public ResponseEntity<CounselorUserListResponse> readUserCounselorList(@PathVariable Long userSeq, Pageable pageable) {
@@ -62,12 +70,6 @@ public class CounselorController {
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "게시글 상세조회", description = "ID로 특정 게시글을 조회합니다.")
-    @GetMapping("/{hireSeq}")
-    public ResponseEntity<CounselorDetailResponse> readPostDetail(@PathVariable Long hireSeq) {
 
-        CounselorDetailResponse detail = counselorService.readPostDetail(hireSeq);
-        return ResponseEntity.status(HttpStatus.OK).body(detail);
-    }
 
 }
